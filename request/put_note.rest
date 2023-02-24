@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/notes/63f824f9cb744b5d6ae43054
+Content-Type: application/json
+
+{
+    "content": "Excelentes videos to learning Minudev",
+    "important": true
+}
