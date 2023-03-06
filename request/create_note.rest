@@ -2,7 +2,9 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "content": "Aprendiendo con MINUDEV 2.0"
+    "content": "Add user to Note",
+    "userId": "6405e6c4ae373cedb93c7616",
+    "important": true
 }
 
 ###

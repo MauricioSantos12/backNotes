@@ -4,7 +4,11 @@ const { model, Schema } = mongoose
 const noteSchema = new Schema({
   content: String,
   date: Date,
-  important: Boolean
+  important: Boolean,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User' // Para hacer referencia al modelo Note
+  }
 })
 
 noteSchema.set('toJSON', {
@@ -18,23 +22,3 @@ noteSchema.set('toJSON', {
 const Note = model('Note', noteSchema)
 
 module.exports = Note
-
-// const note = new Note({
-//   content: 'MongoDB connected',
-//   date: new Date(),
-//   important: true
-// })
-
-// note.save().then(result => {
-//   console.log('result', result)
-//   mongoose.connection.close()
-// }).catch((error) => {
-//   console.log('error', error)
-// })
-
-// Note.find({}).then(results => {
-//   console.log({ results })
-//   mongoose.connection.close()
-// }).catch(error => {
-//   console.log({ error })
-// })
