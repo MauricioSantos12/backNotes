@@ -1,6 +1,7 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/Note')
 const User = require('../models/User')
+const userExtractor = require('../middleware/userExtractor')
 notesRouter.get('/', async (req, res) => {
   const notes = await Note.find({}).populate('user', {
     username: 1, name: 1
@@ -22,18 +23,7 @@ notesRouter.get('/:id', (req, res, next) => {
   })
 })
 
-notesRouter.put('/:id', (req, res, next) => {
-  // const id = req.params.id
-  // const note = req.body
-  // const newNoteInfo = new Note({
-  //   content: note.content,
-  //   important: note.important ? note.important : false
-  // })
-  // Note.findByIdAndUpdate(id, newNoteInfo, { new: true })
-  //   .then(updatedNote => {
-  //     res.json(updatedNote)
-  //   })
-  //   .catch(error => next(error))
+notesRouter.put('/:id', userExtractor, (req, res, next) => {
   const note = req.body
   const id = req.params.id
 
@@ -49,8 +39,9 @@ notesRouter.put('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-notesRouter.post('/', async (req, res, next) => {
-  const {content, important = false, userId} = req.body
+notesRouter.post('/', userExtractor, async (req, res, next) => {
+  const { content, important = false } = req.body
+  const { userId } = req
   const user = await User.findById(userId)
   if (!content || !content) {
     res.status(404).json({
@@ -60,7 +51,7 @@ notesRouter.post('/', async (req, res, next) => {
     const newNote = new Note({
       content,
       date: new Date().toISOString(),
-      important: important ? important : false,
+      important: important || false,
       user: user._id
     })
     try {
@@ -74,7 +65,7 @@ notesRouter.post('/', async (req, res, next) => {
   }
 })
 
-notesRouter.delete('/:id', async (req, res, next) => {
+notesRouter.delete('/:id', userExtractor, async (req, res, next) => {
   const { id } = req.params
   try {
     await Note.findByIdAndRemove(id)

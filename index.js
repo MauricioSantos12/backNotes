@@ -9,6 +9,7 @@ const Sentry = require('@sentry/node')
 const Tracing = require('@sentry/tracing')
 const usersRouter = require('./controllers/users')
 const notesRouter = require('./controllers/notes')
+const loginRouter = require('./controllers/login')
 const router = express.Router()
 
 Sentry.init({
@@ -47,6 +48,7 @@ app.get('/', async (req, res) => {
 app.use('/api/notes', notesRouter)
 
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 app.use(notFound)
 app.use(Sentry.Handlers.errorHandler())

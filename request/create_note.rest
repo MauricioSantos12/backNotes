@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDVmMmY4ZDhmMDBiNDRlZWM3ZmExNyIsInVzZXJuYW1lIjoiTWF1cmljaW8iLCJpYXQiOjE2NzgxMTU4NTYsImV4cCI6MTY3ODcyMDY1Nn0.xzxlNXVoaWJGD24wgIaZwNSBFFhOU_lnVswqCoo6XW4
 
 {
-    "content": "Add user to Note",
-    "userId": "6405e6c4ae373cedb93c7616",
+    "content": "New note middleware UserExtractor",
     "important": true
 }
 
